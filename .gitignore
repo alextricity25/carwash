@@ -1,1 +1,3 @@
 venv
+carwash/db.sqlite3
+*.pyc

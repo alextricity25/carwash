@@ -36,10 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
-    'social_django',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'carwash',
-    'washes'
+    'washes',
 ]
 
 MIDDLEWARE = [
@@ -66,7 +70,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect'
+                'social_django.context_processors.login_redirect',
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -105,10 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
- 'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
- 'social_core.backends.google.GoogleOpenId',  # for Google authentication
- 'social_core.backends.google.GoogleOAuth2',  # for Google authentication
  'django.contrib.auth.backends.ModelBackend',
+ 'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 
@@ -132,9 +135,20 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Redirect the user after authenticating from Django Login and Social Auth
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'washes/'
+LOGIN_REDIRECT_URL = '/washes/'
 
-# Social auth
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ""
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+
+# Allauth configuration
+# See https://django-allauth.readthedocs.io/en/latest/installation.html
+SITE_ID = 1
+SOCIALACCOUNT_PROVIDERS = {
+        'google': {
+            'SCOPE': [
+                'profile',
+                'email',
+            ],
+            'AUTH_PARAMS': {
+                'access_type': 'online',
+            }
+        }
+}

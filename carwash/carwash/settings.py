@@ -42,8 +42,14 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'carwash',
-    'washes',
+    'carwash.apps.CarwashConfig',
+    'washes.apps.WashesConfig',
+    'products.apps.ProductsConfig',
+    'tools.apps.ToolsConfig',
+    'towels.apps.TowelsConfig',
+    'cars.apps.CarsConfig',
+    'django_extensions',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -152,3 +158,8 @@ SOCIALACCOUNT_PROVIDERS = {
             }
         }
 }
+
+DEFAULT_RENDERER_CLASSES = [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framwork.renderers.BrowsableAPIRenderer',
+]

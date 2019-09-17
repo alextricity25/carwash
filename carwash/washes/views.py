@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from rest_framework import generics
 
-# Create your views here.
+from .models import Washes
+from .serializers import WashesSerializer
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the washes index.")
+class WashesList(generics.ListAPIView):
+    queryset = Washes.objects.all()
+    serializer_class = WashesSerializer
 
-def washes(request):
-    return render(request, 'washes.html')
+

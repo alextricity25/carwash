@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'tools.apps.ToolsConfig',
     'towels.apps.TowelsConfig',
-    'cars.apps.CarsConfig',
     'django_extensions',
     'rest_framework'
 ]

@@ -2,10 +2,11 @@
 from rest_framework import serializers
 from .models import Tools
 
+
 class ToolsSerializer(serializers.ModelSerializer):
     wash = serializers.PrimaryKeyRelatedField(
-            many = True,
-            read_only = True)
+            many=True,
+            read_only=True)
 
     class Meta:
         model = Tools

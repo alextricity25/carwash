@@ -9,6 +9,8 @@ class Tools(models.Model):
     # The wash the tool is associated with. Tools can be associated
     # with multiple washes.
     wash = models.ManyToManyField(Washes, related_name='tools')
+    # The owner of the tool
+    owner = models.ForeignKey('auth.User', related_name='tools', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

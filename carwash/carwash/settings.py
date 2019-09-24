@@ -162,3 +162,5 @@ DEFAULT_RENDERER_CLASSES = [
         'rest_framework.renderers.JSONRenderer',
         'rest_framwork.renderers.BrowsableAPIRenderer',
 ]
+
+ACCOUNT_EMAIL_VERIFICATION="none"

@@ -2,3 +2,4 @@ venv
 carwash/db.sqlite3
 *.pyc
 carwash/carwash/settings.py
+settings.py

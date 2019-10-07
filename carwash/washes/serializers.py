@@ -11,6 +11,9 @@ class WashesSerializer(serializers.ModelSerializer):
             many=True,
             read_only=True)
 
+    owner = serializers.StringRelatedField(
+            read_only=True)
+
     class Meta:
         model = Washes
         fields = ('id', 'title', 'date_created', 'tools', 'owner')

@@ -48,12 +48,17 @@ INSTALLED_APPS = [
     'tools.apps.ToolsConfig',
     'towels.apps.TowelsConfig',
     'django_extensions',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_auth.registration',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -142,10 +147,12 @@ STATIC_URL = '/static/'
 # Redirect the user after authenticating from Django Login and Social Auth
 LOGIN_REDIRECT_URL = '/washes/'
 
-
 # Allauth configuration
+# Also needed by django-rest-auth, which actually uses allauth
 # See https://django-allauth.readthedocs.io/en/latest/installation.html
+# Also see https://django-rest-auth.readthedocs.io/en/latest/installation.html
 SITE_ID = 1
+
 SOCIALACCOUNT_PROVIDERS = {
         'google': {
             'SCOPE': [
@@ -164,3 +171,26 @@ DEFAULT_RENDERER_CLASSES = [
 ]
 
 ACCOUNT_EMAIL_VERIFICATION="none"
+
+# Enable JWT Support for django-rest-auth
+REST_USE_JWT = True
+
+
+# Whitelist the carwash-react app so it's authorized to make request to this server
+CORS_ORIGIN_WHITELIST = [
+        'http://127.0.0.1:3000',
+        'http://localhost:3000'
+]
+
+# Django REST Framework JWT configurations
+# https://jpadilla.github.io/django-rest-framework-jwt/
+REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': (
+            'rest_framework.permissions.IsAuthenticated',
+        ),
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+            'rest_framework.authentication.BasicAuthentication',
+        ),
+}

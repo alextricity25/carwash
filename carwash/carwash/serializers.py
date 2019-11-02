@@ -22,7 +22,9 @@ class LoginSerializer(serializers.Serializer):
     username_field = User.USERNAME_FIELD
 
     username = serializers.CharField(required=False, allow_blank=True)
-    password = serializers.CharField(style={'input_type': 'password'})
+    password = serializers.CharField(style={'input_type': 'password'}, required=False)
+    token = serializers.CharField(required=False)
+    access = serializers.CharField(required=False)
 
     def validate(self,attrs):
         authenticate_kwargs = {

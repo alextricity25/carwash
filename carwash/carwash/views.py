@@ -6,7 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 import pdb
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics, status
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -44,13 +44,14 @@ class LoginView(generics.CreateAPIView):
     def get_response(self):
 
         data = {
-            'user': self.user,
+            'username': self.serializer.validated_data['username'],
             'token': self.token,
             'access': self.access_token
         }
         serializer = self.serializer_class(instance=data,
                                       context={'request': self.request})
-        response = Response(serializer.validated_data, status=status.HTTP_200_OK) 
+        response = Response(serializer.data, status=status.HTTP_200_OK)
+        return response
 
 
     def post(self, request, *args, **kwargs):
@@ -62,7 +63,7 @@ class LoginView(generics.CreateAPIView):
         self.serializer = self.get_serializer(data=self.request.data,
                                               context={'request': request})
         self.serializer.is_valid(raise_exception=True)
-
         self.login()
+
         return self.get_response()
 

@@ -21,4 +21,4 @@ social-auth-core==3.2.0
 sqlite-utils==1.11
 sqlparse==0.3.0
 tabulate==0.8.3
-urllib3==1.25.3
+urllib3==1.26.5
